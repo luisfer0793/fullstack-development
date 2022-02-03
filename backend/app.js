@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors');
 
 const { format } = require("date-fns");
 const morgan = require("morgan");
@@ -10,6 +11,9 @@ const { BASE_URL, RESOURCES } = require("./utils/constants.util");
 
 const app = express();
 
+app.use(cors({
+  origin: '*'
+}))
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.static(`${__dirname}/public`));

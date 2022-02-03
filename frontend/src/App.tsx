@@ -1,6 +1,14 @@
-import './App.css';
+import { Routes, Route } from 'react-router-dom';
 
-import { Button } from './components/Button/Button.component';
+import { Navbar } from 'components/Navbar/Navbar.component';
+
+import { HomePage } from 'pages/Home/Home.page';
+import { ServicesPage } from 'pages/Services/Services.page';
+import { BlogPage } from 'pages/Blog/Blog.page';
+import { PortfolioPage } from 'pages/Portfolio/Portfolio.page';
+import { ContactPage } from 'pages/Contact/Contact.page';
+
+import './App.css';
 
 function App() {
   const onClickHandler = () => {
@@ -8,43 +16,16 @@ function App() {
   };
 
   return (
-    <main className="container mx-auto">
-      <h1 className="text-4xl font-bold uppercase text-center">Hello World!</h1>
-      <section className="mt-4 grid grid-cols-3 gap-x-2">
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla atque
-          sed amet facilis sit optio, asperiores, libero doloremque inventore
-          esse, totam labore aliquid perspiciatis aut fuga saepe voluptatum ab
-          cupiditate sunt est ullam suscipit! Minima, itaque. Nam non, omnis
-          sequi quo amet odio repellat hic et neque, corporis qui earum?
-        </p>
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla atque
-          sed amet facilis sit optio, asperiores, libero doloremque inventore
-          esse, totam labore aliquid perspiciatis aut fuga saepe voluptatum ab
-          cupiditate sunt est ullam suscipit! Minima, itaque. Nam non, omnis
-          sequi quo amet odio repellat hic et neque, corporis qui earum?
-        </p>
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nulla atque
-          sed amet facilis sit optio, asperiores, libero doloremque inventore
-          esse, totam labore aliquid perspiciatis aut fuga saepe voluptatum ab
-          cupiditate sunt est ullam suscipit! Minima, itaque. Nam non, omnis
-          sequi quo amet odio repellat hic et neque, corporis qui earum?
-        </p>
-      </section>
-      <div className="mt-4 flex items-center justify-around">
-        <Button onClick={onClickHandler}>
-          Hola
-        </Button>
-        <Button onClick={onClickHandler}>
-          Como
-        </Button>
-        <Button onClick={onClickHandler}>
-          Estas
-        </Button>
-      </div>
-    </main>
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/servicios" element={<ServicesPage />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/portfolio" element={<PortfolioPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+      </Routes>
+    </>
   );
 }
 

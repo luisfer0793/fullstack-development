@@ -2,7 +2,8 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     fontFamily: {
-      sans: ['Work Sans', 'sans-serif'],
+      sans: ['Outfit', 'sans-serif'],
+      serif: ['Work Sans', 'serif'],
     },
     extend: {},
   },
