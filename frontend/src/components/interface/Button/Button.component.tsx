@@ -2,9 +2,16 @@ import { FC } from 'react';
 
 interface ButtonProps {
   onClick?: () => void;
+  type?: 'submit';
+  label: string;
 }
 
-export const Button: FC<ButtonProps> = ({ children, onClick }) => (
+export const Button: FC<ButtonProps> = ({
+  children,
+  onClick,
+  label,
+  ...restProps
+}) => (
   <button
     onClick={onClick}
     className={`
@@ -24,7 +31,8 @@ export const Button: FC<ButtonProps> = ({ children, onClick }) => (
       focus:outline-none
       focus:ring-slate-300
     `}
+    {...restProps}
   >
-    {children}
+    {label}
   </button>
 );

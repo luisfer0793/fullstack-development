@@ -1,6 +1,19 @@
-import { Button } from 'components/Button/Button.component';
+import { useEffect } from 'react';
+
+import { Button } from 'components/interface/Button/Button.component';
+
+import { useTypedDispatch, useTypedSelector } from 'state/store';
+
+import { setTours } from 'state/slices/tours/tours.slice';
+import { getTotalToursSelector } from 'state/slices/tours/tours.selector';
 
 export const HomePage = () => {
+  const dispatch = useTypedDispatch();
+
+  const setToursHandler = () => {
+    dispatch(setTours(['This', 'is', 'great']));
+  };
+
   return (
     <main className="container mx-auto mt-8">
       <h1 className="text-4xl uppercase text-center">Mi página web!</h1>
@@ -25,28 +38,8 @@ export const HomePage = () => {
           sequi quo amet odio repellat hic et neque, corporis qui earum?
         </p>
       </section>
-      <div className="mt-4 flex items-center justify-around">
-        <Button
-          onClick={() => {
-            console.log('Hello');
-          }}
-        >
-          Hola
-        </Button>
-        <Button
-          onClick={() => {
-            console.log('Hello');
-          }}
-        >
-          Como
-        </Button>
-        <Button
-          onClick={() => {
-            console.log('Hello');
-          }}
-        >
-          Estas
-        </Button>
+      <div className="mt-4 flex items-center justify-center">
+        <Button label="Set Tours" onClick={setToursHandler} />
       </div>
     </main>
   );

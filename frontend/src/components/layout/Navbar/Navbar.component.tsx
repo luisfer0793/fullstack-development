@@ -1,6 +1,24 @@
+import { useDispatch } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
 
+import { useTypedSelector } from 'state/store';
+
+import { setAuthentication } from 'state/slices/authentication.slice';
+import { useEffect } from 'react';
+
 export const Navbar = () => {
+  const { isAuthenticated } = useTypedSelector(state => state.authentication);
+
+  const dispatch = useDispatch();
+
+  const switchAuthenticationHandler = () => {
+    dispatch(setAuthentication(!isAuthenticated));
+  };
+
+  useEffect(() => {
+    console.log('[Navbar]: Render');
+  });
+
   return (
     <nav className="bg-slate-100">
       <div className="flex container mx-auto items-center justify-between">
@@ -60,7 +78,12 @@ export const Navbar = () => {
           </li>
         </ul>
         <div>
-          <span className="font-serif font-bold">LOGIN</span>
+          <span
+            className="font-serif font-bold cursor-pointer transition ease-linear duration-150 hover:text-amber-500"
+            onClick={switchAuthenticationHandler}
+          >
+            {isAuthenticated ? 'LOG OUT' : 'LOG IN'}
+          </span>
         </div>
       </div>
     </nav>

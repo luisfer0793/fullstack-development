@@ -1,6 +1,6 @@
 import { useGetTours } from 'network/services/tours/tours.hook';
 
-import { SkeletonCard } from 'components/Skeletons/Card/SkeletonCard.component';
+import { SkeletonCard } from 'components/skeleton/Card/SkeletonCard.component';
 import { ToastError } from 'components/Toasts/Error/ToastError.component';
 
 export const ServicesPage = () => {

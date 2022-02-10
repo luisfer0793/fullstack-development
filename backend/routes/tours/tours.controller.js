@@ -1,10 +1,11 @@
 /**
  * @typedef {import('@types/express').Request} Request
  * @typedef {import('@types/express').Response} Response
- * @typedef {import('@types/express').NextFunction} Next
  */
 
 const Tour = require('../../models/tour/tour.model');
+
+const { APIFeature } = require('../../utils/features.util');
 
 /**
  * @param {Request} request
@@ -12,7 +13,13 @@ const Tour = require('../../models/tour/tour.model');
  */
 const getTours = async (request, response) => {
   try {
-    const tours = await Tour.find();
+    const { query } = request;
+    const { queryModel } = new APIFeature(Tour.find(), query)
+      .filter()
+      .sort()
+      .exclude()
+      .paginate();
+    const tours = await queryModel;
     response.status(200).json({
       status: 'success',
       requestedAt: request.requestDate,
