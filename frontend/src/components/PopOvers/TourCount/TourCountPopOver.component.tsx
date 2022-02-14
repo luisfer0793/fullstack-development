@@ -1,9 +1,9 @@
 import { useTypedSelector } from 'state/store';
 
-import { getTotalToursSelector } from 'state/slices/tours/tours.selector';
+import { totalToursSelector } from 'state/slices/tours/tours.selector';
 
 export const TourCountPopOver = () => {
-  const count = useTypedSelector(getTotalToursSelector);
+  const count = useTypedSelector(totalToursSelector);
 
   return (
     <div className="bg-lime-200 text-center py-4">

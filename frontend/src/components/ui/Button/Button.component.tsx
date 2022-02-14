@@ -1,8 +1,8 @@
-import { FC } from 'react';
+import { FC, MouseEvent } from 'react';
 
 interface ButtonProps {
-  onClick?: () => void;
-  type?: 'submit';
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  type?: 'button' | 'submit' | 'reset';
   label: string;
 }
 
@@ -10,9 +10,11 @@ export const Button: FC<ButtonProps> = ({
   children,
   onClick,
   label,
+  type,
   ...restProps
 }) => (
   <button
+    type={type}
     onClick={onClick}
     className={`
     bg-slate-600 

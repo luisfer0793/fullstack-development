@@ -1,11 +1,10 @@
 import { useEffect } from 'react';
 
-import { Button } from 'components/interface/Button/Button.component';
+import { Button } from 'components/ui/Button/Button.component';
 
 import { useTypedDispatch, useTypedSelector } from 'state/store';
 
 import { setTours } from 'state/slices/tours/tours.slice';
-import { getTotalToursSelector } from 'state/slices/tours/tours.selector';
 
 export const HomePage = () => {
   const dispatch = useTypedDispatch();
