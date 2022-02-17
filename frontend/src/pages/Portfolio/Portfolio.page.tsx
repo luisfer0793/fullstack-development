@@ -1,12 +1,13 @@
-import { SkeletonCard } from 'components/skeleton/Card/SkeletonCard.component';
-import { ToastError } from 'components/Toasts/Error/ToastError.component';
+import { SkeletonCard } from 'components/custom/skeletons/Card/SkeletonCard.component';
+import { Alert } from 'components/custom/alert/Alert.component';
 
 export const PortfolioPage = () => {
   return (
     <main className="container mx-auto mt-8">
       <h1 className="text-center text-3xl uppercase">Portafolio</h1>
       <SkeletonCard />
-      <ToastError message="El error va aquí" />
+      <br />
+      <Alert variant="success" />
     </main>
   );
 };

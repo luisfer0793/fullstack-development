@@ -3,13 +3,12 @@ import ReactDOM from 'react-dom';
 
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { PersistGate } from 'redux-persist/integration/react';
 import { QueryCache, QueryClient, QueryClientProvider } from 'react-query';
 
-import toast, { Toaster } from 'react-hot-toast';
-
-import { ReactQueryDevtools } from 'react-query/devtools';
-
-import { PersistGate } from 'redux-persist/integration/react';
+import { Alert } from 'components/custom/alert/Alert.component';
 
 import { store, persistor } from './state/store';
 
@@ -20,10 +19,8 @@ import './index.css';
 const client = new QueryClient({
   queryCache: new QueryCache({
     onError: error => {
-      toast.error('Algo salió mal', {
-        position: 'bottom-center',
-        className:
-          'py-2 px-8 rounded border-solid border-2 border-rose-300 bg-red-100 text-red-900 text-center',
+      toast.custom(<Alert variant="error" />, {
+        position: 'bottom-right',
       });
     },
   }),

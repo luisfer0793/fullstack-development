@@ -1,18 +1,11 @@
-import { Outlet } from 'react-router-dom';
-
 import { useGetTours } from 'network/services/tours/tours.hook';
 
-import { SkeletonCard } from 'components/skeleton/Card/SkeletonCard.component';
-import { ToastError } from 'components/Toasts/Error/ToastError.component';
+import { Alert } from 'components/custom/alert/Alert.component';
+import { SkeletonCard } from 'components/custom/skeletons/Card/SkeletonCard.component';
 import { TourCollection } from 'components/custom/collections/Tour/TourCollection.component';
-
-import { useTypedSelector } from '../../state/store';
-import { toursSelector } from '../../state/slices/tours/tours.selector';
 
 export const ToursPage = () => {
   const { data = [], isLoading, isError } = useGetTours();
-
-  const tours = useTypedSelector(toursSelector);
 
   if (isLoading) {
     return (
@@ -31,7 +24,7 @@ export const ToursPage = () => {
     return (
       <main className="container mx-auto mt-8">
         <h1 className="text-center text-3xl uppercase pb-4">Servicios</h1>
-        <ToastError message="Error al cargar la información, intente de nuevo más tarde" />
+        <Alert variant="error" />
       </main>
     );
   }

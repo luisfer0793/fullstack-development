@@ -2,7 +2,7 @@ import { useTypedSelector } from 'state/store';
 
 import { totalToursSelector } from 'state/slices/tours/tours.selector';
 
-export const TourCountPopOver = () => {
+export const TourCounter = () => {
   const count = useTypedSelector(totalToursSelector);
 
   return (

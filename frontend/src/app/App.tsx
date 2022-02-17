@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 
 import { Navbar } from 'components/layout/Navbar/Navbar.component';
+import { TourCounter } from 'components/custom/counters/Tour/TourCounter.component';
 
 import { HomePage } from 'pages/Home/Home.page';
 import { ToursPage } from 'pages/Tours/Tours.page';
@@ -10,17 +11,12 @@ import { ContactPage } from 'pages/Contact/Contact.page';
 import { TourPage } from 'pages/Tour/Tour.page';
 
 import './App.css';
-import { TourCountPopOver } from '../components/PopOvers/TourCount/TourCountPopOver.component';
 
 function App() {
-  const onClickHandler = () => {
-    console.log('Hola');
-  };
-
   return (
     <>
       <Navbar />
-      <TourCountPopOver />
+      <TourCounter />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="tours" element={<ToursPage />} />
