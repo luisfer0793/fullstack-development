@@ -1,18 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+import { ITour } from 'shared/interfaces/tour.interface';
+
 export interface IToursState {
-  tours: string[];
+  tours: ITour[];
 }
 
 const initialState: IToursState = {
-  tours: ['Hola', 'Mundo'],
+  tours: [],
 };
 
 const toursSlice = createSlice({
   name: 'tours',
   initialState,
   reducers: {
-    setTours: (state, action: PayloadAction<string[]>) => {
+    setTours: (state, action: PayloadAction<ITour[]>) => {
       state.tours = action.payload;
     },
   },

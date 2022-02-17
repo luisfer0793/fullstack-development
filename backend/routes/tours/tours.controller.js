@@ -6,6 +6,7 @@
 const Tour = require('../../models/tour/tour.model');
 
 const { APIFeature } = require('../../utils/features.util');
+const { response } = require('express');
 
 /**
  * @param {Request} request
@@ -135,4 +136,44 @@ const deleteTour = async (request, response) => {
   }
 };
 
-module.exports = { getTours, getTour, postTour, patchTour, deleteTour };
+/**
+ * @param {Request} request
+ * @param {Response} response
+ */
+const getToursStatistics = async (request, response) => {
+  try {
+    const statistics = await Tour.aggregate([
+      { $match: { ratingsAverage: { $gte: 4.5 } } },
+      {
+        $group: {
+          _id: { $toUpper: '$difficulty' },
+          tours: { $sum: 1 },
+          ratings: { $sum: '$ratingsQuantity' },
+          averageRatings: { $avg: '$ratingsAverage' },
+          minimunPrice: { $min: '$price' },
+          maximumPrice: { $max: '$price' },
+        },
+      },
+    ]);
+    response.status(200).json({
+      status: 'success',
+      requestedAt: request.requestDate,
+      data: { statistics },
+    });
+  } catch (error) {
+    response.status(500).json({
+      status: 'error',
+      requestedAt: request.requestDate,
+      message: error.message,
+    });
+  }
+};
+
+module.exports = {
+  getTours,
+  getTour,
+  postTour,
+  patchTour,
+  deleteTour,
+  getToursStatistics,
+};

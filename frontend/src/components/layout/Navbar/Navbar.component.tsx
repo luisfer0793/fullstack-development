@@ -1,10 +1,10 @@
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
 
 import { useTypedSelector } from 'state/store';
 
 import { setAuthentication } from 'state/slices/authentication.slice';
-import { useEffect } from 'react';
 
 export const Navbar = () => {
   const { isAuthenticated } = useTypedSelector(state => state.authentication);
@@ -30,19 +30,19 @@ export const Navbar = () => {
         <ul className="flex items-center justify-center">
           <li className="mx-4">
             <NavLink
-              to="/servicios"
+              to="tours"
               className={({ isActive }) =>
                 `relative block py-6 text-xs uppercase before:block before:h-px before:w-full before:bg-amber-500 before:absolute before:bottom-0 before:scale-x-0 before:transition-transform before:ease-linear before:duration-200 hover:before:scale-x-100 ${
                   isActive && `text-amber-500`
                 }`
               }
             >
-              Servicios
+              Tours
             </NavLink>
           </li>
           <li className="mx-4">
             <NavLink
-              to="/blog"
+              to="blog"
               className={({ isActive }) =>
                 `relative block py-6 text-xs uppercase before:block before:h-px before:w-full before:bg-amber-500 before:absolute before:bottom-0 before:scale-x-0 before:transition-transform before:ease-linear before:duration-200 hover:before:scale-x-100 ${
                   isActive && `text-amber-500`
@@ -54,7 +54,7 @@ export const Navbar = () => {
           </li>
           <li className="mx-4">
             <NavLink
-              to="/portfolio"
+              to="portfolio"
               className={({ isActive }) =>
                 `relative block py-6 text-xs uppercase before:block before:h-px before:w-full before:bg-amber-500 before:absolute before:bottom-0 before:scale-x-0 before:transition-transform before:ease-linear before:duration-200 hover:before:scale-x-100 ${
                   isActive && `text-amber-500`
@@ -66,7 +66,7 @@ export const Navbar = () => {
           </li>
           <li className="mx-4">
             <NavLink
-              to="/contact"
+              to="contact"
               className={({ isActive }) =>
                 `relative block py-6 text-xs uppercase before:block before:h-px before:w-full before:bg-amber-500 before:absolute before:bottom-0 before:scale-x-0 before:transition-transform before:ease-linear before:duration-200 hover:before:scale-x-100 ${
                   isActive && `text-amber-500`

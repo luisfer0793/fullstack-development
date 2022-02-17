@@ -17,3 +17,10 @@
         @apply text-gray-600
     }
 }
+
+@layer components {
+    .tour-card {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+}

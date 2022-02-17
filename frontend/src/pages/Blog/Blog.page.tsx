@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 
-import { InputSelect } from 'components/input/Select/InputSelect.component';
-import { Button } from 'components/ui/Button/Button.component';
+import { InputSelect } from 'components/inputs/Select/InputSelect.component';
+import { Button } from 'components/common/Button/Button.component';
 
 export const BlogPage = () => {
   const { handleSubmit, control } = useForm({
