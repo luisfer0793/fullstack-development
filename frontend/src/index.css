@@ -13,6 +13,10 @@
         font-family: 'Work Sans', sans-serif;
         font-weight: 700;
     }
+    label {
+        font-family: 'Work Sans', sans-serif;
+        font-weight: 500;
+    }
     p {
         @apply text-gray-600
     }
