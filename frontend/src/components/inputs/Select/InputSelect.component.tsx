@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { FC, Fragment } from 'react';
 import { useController } from 'react-hook-form';
 
 import { Listbox, Transition } from '@headlessui/react';
@@ -14,32 +14,44 @@ const people = [
   { value: 'Hellen Schmidt' },
 ];
 
-export const InputSelect = ({
-  name,
-  control,
-  label,
-  rules,
-  helperText,
-}: {
+interface InputSelectProps {
   name: string;
   control: any;
   label?: string;
-  rules?: any;
   helperText?: string;
+  placeholder?: string;
+}
+
+export const InputSelect: FC<InputSelectProps> = ({
+  name,
+  control,
+  label,
+  helperText,
+  placeholder,
 }) => {
   const {
     field: { ref, onChange, value, ...inputProps },
     fieldState: { error },
-  } = useController({ name, control, rules });
+  } = useController({ name, control });
 
   return (
     <Listbox as="div" value={value} onChange={onChange} {...inputProps}>
-      <Listbox.Label className="text-[15px] block mb-2">{label}</Listbox.Label>
+      <Listbox.Label className="text-sm block mb-2">{label}</Listbox.Label>
       <div className="relative">
-        <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-transparent rounded cursor-default border focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 focus-visible:border-indigo-500 sm:text-sm">
-          <span className="block truncate">{value}</span>
+        <Listbox.Button
+          className={`relative w-full py-2 pl-3 pr-10 text-left bg-transparent rounded cursor-default border focus:ring focus:outline-none focus:ring-slate-200 sm:text-sm ${
+            !value && 'text-gray-300'
+          } ${!!error && 'border-red-500'}`}
+        >
+          <span className="block truncate">
+            {!!value ? value : placeholder}
+          </span>
           <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-            <SelectorIcon className="h-5 w-5 text-gray-400" />
+            <SelectorIcon
+              className={`h-5 w-5 ${
+                !!error ? 'text-red-400' : 'text-gray-400'
+              }`}
+            />
           </span>
         </Listbox.Button>
         <Transition
@@ -48,7 +60,7 @@ export const InputSelect = ({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+          <Listbox.Options className="absolute z-10 w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
             {people.map((person, personIdx) => (
               <Listbox.Option
                 key={personIdx}
