@@ -1,16 +1,63 @@
 import { FC } from 'react';
 
-interface AlertProps {
-  variant: 'success' | 'warning' | 'error' | 'info';
+import {
+  CheckCircleIcon,
+  XCircleIcon,
+  ExclamationIcon,
+  InformationCircleIcon,
+} from '@heroicons/react/solid';
+
+import { Alert as StyledAlert } from '@mantine/core';
+
+import { useStyles } from './Alert.style';
+
+interface Alert {
+  id: string;
+  variant: 'success' | 'error' | 'warning' | 'info';
+  mounted: boolean;
+  message: string;
+  title: string;
+  withCloseButton?: boolean;
 }
 
-export const Alert: FC<AlertProps> = ({ variant }) => {
+export const Alert: FC<Alert> = ({
+  mounted,
+  variant,
+  message,
+  id,
+  ...restProps
+}) => {
+  const {
+    classes: { icon, wrapper, title, message: messageRule },
+  } = useStyles();
+
+  const settings = {
+    success: {
+      color: 'green',
+      icon: <CheckCircleIcon className={icon} />,
+    },
+    error: {
+      color: 'red',
+      icon: <XCircleIcon className={icon} />,
+    },
+    warning: {
+      color: 'yellow',
+      icon: <ExclamationIcon className={icon} />,
+    },
+    info: {
+      color: 'indigo',
+      icon: <InformationCircleIcon className={icon} />,
+    },
+  }[variant];
+
   return (
-    <aside className="flex w-max bg-red-50 before:bg-red-600 before:block before:w-1">
-      <div className="px-4 py-2">
-        <h6 className="text-red-600 text-sm mb-1">Bummer!</h6>
-        <p className="text-sm">Algo salió mal.</p>
-      </div>
-    </aside>
+    <StyledAlert
+      {...restProps}
+      icon={settings.icon}
+      color={settings.color}
+      classNames={{ icon: wrapper, label: title, message: messageRule }}
+    >
+      {message}
+    </StyledAlert>
   );
 };
