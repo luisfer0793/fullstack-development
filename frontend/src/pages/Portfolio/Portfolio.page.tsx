@@ -1,5 +1,4 @@
 import { SkeletonCard } from 'components/custom/skeletons/Card/SkeletonCard.component';
-import { Alert } from 'components/custom/alert/Alert.component';
 
 export const PortfolioPage = () => {
   return (
@@ -7,7 +6,6 @@ export const PortfolioPage = () => {
       <h1 className="text-center text-3xl uppercase">Portafolio</h1>
       <SkeletonCard />
       <br />
-      <Alert variant="success" />
     </main>
   );
 };

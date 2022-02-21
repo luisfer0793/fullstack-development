@@ -1,77 +1,73 @@
-import { useEffect } from 'react';
+import { forwardRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
+
+import { Container, Text } from '@mantine/core';
 
 import { useTypedSelector } from 'state/store';
 
 import { setAuthentication } from 'state/slices/authentication.slice';
 
-export const Navbar = () => {
+import { useStyles } from './Navbar.style';
+
+export const Navbar = forwardRef<HTMLElement>((_, ref) => {
   const { isAuthenticated } = useTypedSelector(state => state.authentication);
 
   const dispatch = useDispatch();
+
+  const {
+    classes: {
+      navbar,
+      container,
+      asLink,
+      list,
+      listItem,
+      navlink,
+      active,
+      session,
+    },
+    cx,
+  } = useStyles();
 
   const switchAuthenticationHandler = () => {
     dispatch(setAuthentication(!isAuthenticated));
   };
 
-  useEffect(() => {
-    console.log('[Navbar]: Render');
-  });
-
   return (
-    <nav className="bg-slate-100">
-      <div className="flex container mx-auto items-center justify-between">
-        <div>
-          <Link to="/" className="font-serif font-bold">
-            LOGO
-          </Link>
-        </div>
-        <ul className="flex items-center justify-center">
-          <li className="mx-4">
+    <nav className={navbar} ref={ref}>
+      <Container className={container}>
+        <Text component={Link} to="/" className={asLink}>
+          HOME
+        </Text>
+        <ul className={list}>
+          <li className={listItem}>
             <NavLink
               to="tours"
-              className={({ isActive }) =>
-                `relative block py-6 text-xs uppercase before:block before:h-px before:w-full before:bg-amber-500 before:absolute before:bottom-0 before:scale-x-0 before:transition-transform before:ease-linear before:duration-200 hover:before:scale-x-100 ${
-                  isActive && `text-amber-500`
-                }`
-              }
+              className={({ isActive }) => cx(navlink, isActive && active)}
             >
               Tours
             </NavLink>
           </li>
-          <li className="mx-4">
+          <li className={listItem}>
             <NavLink
               to="blog"
-              className={({ isActive }) =>
-                `relative block py-6 text-xs uppercase before:block before:h-px before:w-full before:bg-amber-500 before:absolute before:bottom-0 before:scale-x-0 before:transition-transform before:ease-linear before:duration-200 hover:before:scale-x-100 ${
-                  isActive && `text-amber-500`
-                }`
-              }
+              className={({ isActive }) => cx(navlink, isActive && active)}
             >
               Blog
             </NavLink>
           </li>
-          <li className="mx-4">
+          <li className={listItem}>
             <NavLink
               to="portfolio"
-              className={({ isActive }) =>
-                `relative block py-6 text-xs uppercase before:block before:h-px before:w-full before:bg-amber-500 before:absolute before:bottom-0 before:scale-x-0 before:transition-transform before:ease-linear before:duration-200 hover:before:scale-x-100 ${
-                  isActive && `text-amber-500`
-                }`
-              }
+              className={({ isActive }) => cx(navlink, isActive && active)}
             >
               Portafolio
             </NavLink>
           </li>
-          <li className="mx-4">
+          <li className={listItem}>
             <NavLink
               to="contact"
-              className={({ isActive }) =>
-                `relative block py-6 text-xs uppercase before:block before:h-px before:w-full before:bg-amber-500 before:absolute before:bottom-0 before:scale-x-0 before:transition-transform before:ease-linear before:duration-200 hover:before:scale-x-100 ${
-                  isActive && `text-amber-500`
-                }`
-              }
+              className={({ isActive }) => cx(navlink, isActive && active)}
             >
               Contacto
             </NavLink>
@@ -79,13 +75,13 @@ export const Navbar = () => {
         </ul>
         <div>
           <span
-            className="font-serif font-bold cursor-pointer transition ease-linear duration-150 hover:text-amber-500"
+            className={`${asLink} ${session}`}
             onClick={switchAuthenticationHandler}
           >
             {isAuthenticated ? 'LOG OUT' : 'LOG IN'}
           </span>
         </div>
-      </div>
+      </Container>
     </nav>
   );
-};
+});

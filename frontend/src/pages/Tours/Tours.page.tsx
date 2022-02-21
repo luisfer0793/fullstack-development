@@ -1,6 +1,5 @@
 import { useGetTours } from 'network/services/tours/tours.hook';
 
-import { Alert } from 'components/custom/alert/Alert.component';
 import { SkeletonCard } from 'components/custom/skeletons/Card/SkeletonCard.component';
 import { TourCollection } from 'components/custom/collections/Tour/TourCollection.component';
 
@@ -24,7 +23,6 @@ export const ToursPage = () => {
     return (
       <main className="container mx-auto mt-8">
         <h1 className="text-center text-3xl uppercase pb-4">Servicios</h1>
-        <Alert variant="error" />
       </main>
     );
   }

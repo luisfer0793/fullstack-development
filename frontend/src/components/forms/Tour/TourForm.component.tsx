@@ -1,31 +1,36 @@
-import { FC, useEffect } from 'react';
+import { FC, Fragment, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-
-import { InferType } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { TourFormSchema } from 'shared/validations/TourFormSchema';
+import { Button, Space } from '@mantine/core';
+import { useNotifications } from '@mantine/notifications';
 
-import { Button } from 'components/common/Button/Button.component';
-import { InputText } from 'components/inputs/Text/InputText.component';
-import { InputSelect } from 'components/inputs/Select/InputSelect.component';
-import { InputCheckbox } from 'components/inputs/Checkbox/InputCheckbox.component';
+import { TextControlledInput } from 'components/inputs/Text/TextControlledInput.component';
+import { SelectControlledInput } from 'components/inputs/Select/SelectControlledInput.component';
+import { CheckboxControlledInput } from 'components/inputs/Checkbox/CheckboxControlledInput.component';
 
-type TourFormData = InferType<typeof TourFormSchema>;
+import {
+  FingerPrintIcon,
+  AtSymbolIcon,
+  LockClosedIcon,
+} from '@heroicons/react/outline';
 
-interface Vehicles {
-  car: string;
-  bike: string;
-  boat: string;
-  tractor: string;
-}
+import {
+  IVehicles,
+  TourFormSchema,
+  TourFormDataType,
+  vehicles,
+  defaultValues,
+} from './TourForm.util';
 
-const collection: Vehicles = {
-  car: 'Automóvil',
-  bike: 'Bicicleta',
-  boat: 'Bote',
-  tractor: 'Tractor',
-};
+const people = [
+  { value: 'Wade Cooper', label: 'Wade Cooper' },
+  { value: 'Arlene Mccoy', label: 'Arlene Mccoy' },
+  { value: 'Devon Webb', label: 'Devon Webb' },
+  { value: 'Tom Cook', label: 'Tom Cook' },
+  { value: 'Tanya Fox', label: 'Tanya Fox' },
+  { value: 'Hellen Schmidt', label: 'Hellen Schmidt' },
+];
 
 export const TourForm: FC = () => {
   const {
@@ -33,42 +38,38 @@ export const TourForm: FC = () => {
     control,
     reset,
     formState: { isSubmitSuccessful },
-  } = useForm<TourFormData>({
+  } = useForm<TourFormDataType>({
+    defaultValues,
     resolver: yupResolver(TourFormSchema),
-    defaultValues: {
-      name: '',
-      option: '',
-      email: '',
-      password: '',
-      confirmation: '',
-      isMarried: false,
-      vehicles: {
-        car: false,
-        bike: false,
-        boat: false,
-        tractor: false,
-      },
-    },
   });
 
-  const onSubmitHandler = (data: TourFormData) => {
-    const { vehicles, ...rest } = data;
-    const vehiclesAsArray = Object.keys(vehicles).filter(
-      vehicle => vehicles[vehicle as keyof Vehicles]
+  const { showNotification } = useNotifications();
+
+  const onSubmitHandler = (data: TourFormDataType) => {
+    const { vehicles: items, ...rest } = data;
+    const vehicles = Object.keys(items).filter(
+      vehicle => items[vehicle as keyof IVehicles]
     );
-    console.log('Data: ', { ...rest, vehiclesAsArray });
+    console.log('Data: ', { ...rest, vehicles });
   };
 
   useEffect(() => {
     if (isSubmitSuccessful) {
-      console.log('Se envió correctamente la información');
+      showNotification({
+        title: 'Información enviada',
+        message:
+          'Tu información fue enviada con éxito, pronto recibirás noticias.',
+        color: 'green',
+      });
       reset();
     }
-  }, [isSubmitSuccessful]);
+  }, [isSubmitSuccessful, reset, showNotification]);
 
   return (
     <form onSubmit={handleSubmit(onSubmitHandler)} noValidate>
-      <InputSelect
+      <SelectControlledInput
+        disabled
+        data={people}
         name="option"
         label="Opciones"
         control={control}
@@ -76,60 +77,72 @@ export const TourForm: FC = () => {
         helperText="Aquí va tu selección mas importante"
       />
       <br />
-      <InputText
+      <TextControlledInput
+        disabled
         name="name"
         type="text"
         label="Nombre"
         control={control}
         placeholder="Escribe tu nombre"
-        helperText="Aquí va tu nombre completo"
+        description="Aquí va tu nombre completo"
+        icon={<FingerPrintIcon />}
       />
       <br />
-      <InputText
+      <TextControlledInput
+        required
         name="email"
         type="email"
         label="Email"
         control={control}
         placeholder="hello@example.com"
-        helperText="Tu correo electrónico"
+        description="Tu correo electrónico"
+        icon={<AtSymbolIcon />}
       />
       <br />
-      <InputText
+      <TextControlledInput
+        required
         name="password"
         type="password"
         label="Contraseña"
         control={control}
         placeholder="Contraseña"
-        helperText="Mas de 6 caracteres"
+        description="Mas de 6 caracteres"
+        icon={<LockClosedIcon />}
       />
       <br />
-      <InputText
+      <TextControlledInput
+        required
         name="confirmation"
         type="password"
         label="Confirmar contraseña"
         control={control}
-        placeholder="Vuelve a esribir tu contraseña"
-        helperText="Mas de 6 caracteres"
+        placeholder="Vuelve a escribir tu contraseña"
+        description="Mas de 6 caracteres"
+        icon={<LockClosedIcon />}
       />
       <br />
-      <InputCheckbox
+      <CheckboxControlledInput
         label="Casado"
         name="isMarried"
         control={control}
         helperText="Estado civil"
       />
       <br />
-      {Object.keys(collection).map(vehicle => (
-        <InputCheckbox
-          key={vehicle}
-          label={collection[vehicle as keyof Vehicles]}
-          name={`vehicles.${vehicle}`}
-          control={control}
-          helperText="Selecciona uno o más vehículos"
-        />
+      {Object.keys(vehicles).map(vehicle => (
+        <Fragment key={vehicle}>
+          <CheckboxControlledInput
+            label={vehicles[vehicle as keyof IVehicles]}
+            name={`vehicles.${vehicle}`}
+            control={control}
+            helperText="Selecciona uno o más vehículos"
+          />
+          <Space h="md" />
+        </Fragment>
       ))}
       <br />
-      <Button type="submit" label="Enviar" />
+      <Button type="submit" uppercase color="slate">
+        Enviar
+      </Button>
     </form>
   );
 };

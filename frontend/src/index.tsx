@@ -3,27 +3,24 @@ import ReactDOM from 'react-dom';
 
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import toast, { Toaster } from 'react-hot-toast';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { PersistGate } from 'redux-persist/integration/react';
 import { QueryCache, QueryClient, QueryClientProvider } from 'react-query';
 
-import { Alert } from 'components/custom/alert/Alert.component';
+import { MantineProvider, Global } from '@mantine/core';
+import { NotificationsProvider } from '@mantine/notifications';
 
 import { store, persistor } from './state/store';
 
-import App from './app/App';
+import AppComponent from './app/App.component';
+
+import { globalStyles } from './styles/global.style';
+import { overrides } from './styles/overrides.style';
+import { theme } from './styles/theme.style';
 
 import './index.css';
 
 const client = new QueryClient({
-  queryCache: new QueryCache({
-    onError: error => {
-      toast.custom(<Alert variant="error" />, {
-        position: 'bottom-right',
-      });
-    },
-  }),
   defaultOptions: {
     queries: {
       retry: false,
@@ -37,8 +34,17 @@ ReactDOM.render(
     <BrowserRouter>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <Toaster />
-          <App />
+          <MantineProvider
+            withNormalizeCSS
+            withGlobalStyles
+            theme={theme}
+            styles={overrides}
+          >
+            <NotificationsProvider autoClose={6000}>
+              <Global styles={globalStyles} />
+              <AppComponent />
+            </NotificationsProvider>
+          </MantineProvider>
           <ReactQueryDevtools initialIsOpen={true} />
         </PersistGate>
       </Provider>
