@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { Card, Image, Group, Text, Badge, Button, Title } from '@mantine/core';
+
 import { ITour } from 'shared/interfaces/tour.interface';
 
 interface TourCardProps {
@@ -15,21 +17,29 @@ export const TourCard: FC<TourCardProps> = ({ tour }) => {
   };
 
   return (
-    <article
-      className="tour-card overflow-hidden rounded hover:cursor-pointer shadow-md"
-      onClick={onNavigateHandler}
-    >
-      <div
-        className="bg-center bg-cover"
-        style={{
-          backgroundImage: `linear-gradient(to bottom, rgba(255, 247, 237, .3), rgba(247, 254, 231, .3)), url('${tour.imageCover}')`,
-        }}
-      />
-      <div className="p-4">
-        <h6 className="text-center mb-2">{tour.name}</h6>
-        <p className="text-center mb-2">{tour.summary}</p>
-        <p className=" text-center text-orange-400">&#36;{tour.price}</p>
-      </div>
-    </article>
+    <Card shadow="sm" padding="lg">
+      <Card.Section>
+        <Image src={tour.imageCover} height={160} alt="Norway" />
+      </Card.Section>
+
+      <Group position="apart" style={{ marginBottom: 5, marginTop: 20 }}>
+        <Title order={6}>{tour.name}</Title>
+        <Badge color="pink" variant="light">
+          On Sale
+        </Badge>
+      </Group>
+
+      <Text size="sm">{tour.summary}</Text>
+
+      <Button
+        variant="light"
+        color="blue"
+        fullWidth
+        style={{ marginTop: 14 }}
+        onClick={onNavigateHandler}
+      >
+        Book now!
+      </Button>
+    </Card>
   );
 };

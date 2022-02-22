@@ -1,5 +1,7 @@
 import { FC } from 'react';
 
+import { Grid } from '@mantine/core';
+
 import { TourCard } from 'components/custom/cards/Tour/TourCard.component';
 
 import { ITour } from 'shared/interfaces/tour.interface';
@@ -10,12 +12,12 @@ interface TourCollectionProps {
 
 export const TourCollection: FC<TourCollectionProps> = ({ tours }) => {
   return (
-    <ul className="grid grid-cols-[repeat(auto-fit,_minmax(450px,_1fr))] gap-8">
+    <Grid>
       {tours.map(tour => (
-        <li key={tour._id}>
+        <Grid.Col xs={6} md={4} key={tour._id}>
           <TourCard tour={tour} />
-        </li>
+        </Grid.Col>
       ))}
-    </ul>
+    </Grid>
   );
 };

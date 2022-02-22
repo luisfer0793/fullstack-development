@@ -2,6 +2,7 @@ import { useGetTours } from 'network/services/tours/tours.hook';
 
 import { SkeletonCard } from 'components/custom/skeletons/Card/SkeletonCard.component';
 import { TourCollection } from 'components/custom/collections/Tour/TourCollection.component';
+import { Container, Title } from '@mantine/core';
 
 export const ToursPage = () => {
   const { data = [], isLoading, isError } = useGetTours();
@@ -28,11 +29,13 @@ export const ToursPage = () => {
   }
 
   return (
-    <main className="container mx-auto mt-8">
-      <h1 className="text-center text-3xl uppercase">Servicios</h1>
-      <section className="mt-4">
-        <TourCollection tours={data} />
-      </section>
+    <main>
+      <Container>
+        <Title order={1}>Servicios</Title>
+        <section className="mt-4">
+          <TourCollection tours={data} />
+        </section>
+      </Container>
     </main>
   );
 };

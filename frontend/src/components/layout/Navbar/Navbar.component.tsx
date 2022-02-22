@@ -75,7 +75,7 @@ export const Navbar = forwardRef<HTMLElement>((_, ref) => {
         </ul>
         <div>
           <span
-            className={`${asLink} ${session}`}
+            className={cx(asLink, session)}
             onClick={switchAuthenticationHandler}
           >
             {isAuthenticated ? 'LOG OUT' : 'LOG IN'}

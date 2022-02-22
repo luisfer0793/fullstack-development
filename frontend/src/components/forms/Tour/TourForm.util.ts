@@ -1,4 +1,6 @@
-import { object, string, ref, boolean, InferType } from 'yup';
+import { object, string, ref, boolean, InferType, date } from 'yup';
+
+import { REG_EX_PHONE_NUMBER } from 'utils/regex.util';
 
 export interface IVehicles {
   car: string;
@@ -29,6 +31,8 @@ export const defaultValues: TourFormDataType = {
     boat: false,
     tractor: false,
   },
+  date: new Date(),
+  phoneNumber: '5528861946',
 };
 
 export const TourFormSchema = object({
@@ -54,4 +58,9 @@ export const TourFormSchema = object({
     boat: boolean(),
     tractor: boolean(),
   }),
+  date: date(),
+  phoneNumber: string().matches(
+    REG_EX_PHONE_NUMBER,
+    'Ingresa un número de teléfono válido [yup]'
+  ),
 });

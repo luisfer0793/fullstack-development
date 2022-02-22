@@ -40,4 +40,5 @@ export const theme = {
     fontSans: "'Outfit', sans-serif",
     weights: [400, 500, 600, 700],
   },
+  datesLocale: 'es',
 };

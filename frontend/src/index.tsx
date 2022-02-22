@@ -5,7 +5,11 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { PersistGate } from 'redux-persist/integration/react';
-import { QueryCache, QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+import dayjs from 'dayjs';
+import 'dayjs/locale/es';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 
 import { MantineProvider, Global } from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
@@ -19,6 +23,8 @@ import { overrides } from './styles/overrides.style';
 import { theme } from './styles/theme.style';
 
 import './index.css';
+
+dayjs.extend(localizedFormat);
 
 const client = new QueryClient({
   defaultOptions: {

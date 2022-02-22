@@ -1,18 +1,22 @@
 import { FC, Fragment, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import dayjs from 'dayjs';
 
 import { Button, Space } from '@mantine/core';
 import { useNotifications } from '@mantine/notifications';
 
 import { TextControlledInput } from 'components/inputs/Text/TextControlledInput.component';
 import { SelectControlledInput } from 'components/inputs/Select/SelectControlledInput.component';
+import { NumberControlledInput } from 'components/inputs/Number/NumberControlledInput.component';
 import { CheckboxControlledInput } from 'components/inputs/Checkbox/CheckboxControlledInput.component';
+import { CalendarControlledInput } from 'components/inputs/Calendar/CalendarControlledInput.component';
 
 import {
   FingerPrintIcon,
   AtSymbolIcon,
   LockClosedIcon,
+  PhoneIcon,
 } from '@heroicons/react/outline';
 
 import {
@@ -51,6 +55,10 @@ export const TourForm: FC = () => {
       vehicle => items[vehicle as keyof IVehicles]
     );
     console.log('Data: ', { ...rest, vehicles });
+    console.log(
+      'Fecha humanizada: ',
+      dayjs(rest.date).locale('es').format('LLL')
+    );
   };
 
   useEffect(() => {
@@ -122,6 +130,7 @@ export const TourForm: FC = () => {
       />
       <br />
       <CheckboxControlledInput
+        disabled
         label="Casado"
         name="isMarried"
         control={control}
@@ -139,6 +148,24 @@ export const TourForm: FC = () => {
           <Space h="md" />
         </Fragment>
       ))}
+      <br />
+      <CalendarControlledInput
+        name="date"
+        control={control}
+        minDate={dayjs(new Date()).toDate()}
+        maxDate={dayjs(new Date()).add(5, 'days').toDate()}
+      />
+      <br />
+      <NumberControlledInput
+        disabled
+        name="phoneNumber"
+        label="Teléfono"
+        control={control}
+        icon={<PhoneIcon />}
+        format="(##) #### ####"
+        placeholder="55 5555 5555"
+        description="Número de teléfono a 10 dígitos"
+      />
       <br />
       <Button type="submit" uppercase color="slate">
         Enviar
