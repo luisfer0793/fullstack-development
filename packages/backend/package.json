@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "@luisfer/backend",
   "version": "1.0.0",
   "description": "Simple REST API",
   "main": "app.js",

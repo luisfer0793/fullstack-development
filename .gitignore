@@ -30,3 +30,9 @@ yarn-error.log*
 /backend/.idea/
 /frontend/node_modules/
 /backend/node_modules/
+/packages/frontend/node_modules/
+/packages/frontend/.idea/
+/packages/shared/lib/
+/packages/shared/node_modules/
+/packages/backend/.idea/
+/packages/backend/node_modules/
