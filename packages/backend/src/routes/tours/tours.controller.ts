@@ -1,26 +1,22 @@
-/**
- * @typedef {import('@types/express').Request} Request
- * @typedef {import('@types/express').Response} Response
- */
+import { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
 
 const Tour = require('../../models/tour/tour.model');
 
 const { APIFeature } = require('../../utils/features.util');
-const { response } = require('express');
 
-/**
- * @param {Request} request
- * @param {Response} response
- */
-const getTours = async (request, response) => {
+interface CustomRequest extends Request {
+  requestDate?: string;
+}
+
+export const getTours = async (request: CustomRequest, response: Response) => {
   try {
-    const { query } = request;
-    const { queryModel } = new APIFeature(Tour.find(), query)
-      .filter()
-      .sort()
-      .exclude()
-      .paginate();
-    const tours = await queryModel;
+    // const { query } = request;
+    // const { queryModel } = new APIFeature(Tour.find(), query)
+    //   .filter()
+    //   .sort()
+    //   .exclude()
+    //   .paginate();
+    const tours = await Tour.find();
     response.status(200).json({
       status: 'success',
       requestedAt: request.requestDate,
@@ -32,16 +28,12 @@ const getTours = async (request, response) => {
     response.status(500).json({
       status: 'fail',
       requestedAt: request.requestDate,
-      message: error.message,
+      // message: error.message,
     });
   }
 };
 
-/**
- * @param {Request} request
- * @param {Response} response
- */
-const getTour = async (request, response) => {
+export const getTour = async (request: CustomRequest, response: Response) => {
   try {
     const { id } = request.params;
     const tour = await Tour.findById(id).exec();
@@ -55,18 +47,14 @@ const getTour = async (request, response) => {
     });
   } catch (error) {
     response.status(500).json({
-      status: 'success',
+      status: 'error',
       requestedAt: request.requestDate,
-      message: error.message,
+      // message: error.message,
     });
   }
 };
 
-/**
- * @param {Request} request
- * @param {Response} response
- */
-const postTour = async (request, response) => {
+export const postTour = async (request: CustomRequest, response: Response) => {
   try {
     const { body } = request;
     const tour = await Tour.create(body);
@@ -81,16 +69,12 @@ const postTour = async (request, response) => {
     response.status(400).json({
       status: 'fail',
       requestedAt: request.requestDate,
-      message: error.message,
+      // message: error.message,
     });
   }
 };
 
-/**
- * @param {Request} request
- * @param {Response} response
- */
-const patchTour = async (request, response) => {
+export const patchTour = async (request: CustomRequest, response: Response) => {
   try {
     const {
       params: { id },
@@ -109,16 +93,15 @@ const patchTour = async (request, response) => {
     response.status(500).json({
       status: 'error',
       requestedAt: request.requestDate,
-      message: error.message,
+      // message: error.message,
     });
   }
 };
 
-/**
- * @param {Request} request
- * @param {Response} response
- */
-const deleteTour = async (request, response) => {
+export const deleteTour = async (
+  request: CustomRequest,
+  response: Response
+) => {
   try {
     const { id } = request.params;
     const tour = await Tour.findByIdAndDelete(id);
@@ -131,16 +114,15 @@ const deleteTour = async (request, response) => {
     response.status(500).json({
       status: 'error',
       requestedAt: request.requestDate,
-      message: error.message,
+      // message: error.message,
     });
   }
 };
 
-/**
- * @param {Request} request
- * @param {Response} response
- */
-const getToursStatistics = async (request, response) => {
+export const getToursStatistics = async (
+  request: CustomRequest,
+  response: Response
+) => {
   try {
     const statistics = await Tour.aggregate([
       { $match: { ratingsAverage: { $gte: 4.5 } } },
@@ -164,16 +146,7 @@ const getToursStatistics = async (request, response) => {
     response.status(500).json({
       status: 'error',
       requestedAt: request.requestDate,
-      message: error.message,
+      // message: error.message,
     });
   }
-};
-
-module.exports = {
-  getTours,
-  getTour,
-  postTour,
-  patchTour,
-  deleteTour,
-  getToursStatistics,
 };

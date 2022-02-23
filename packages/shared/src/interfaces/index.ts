@@ -1,0 +1,1 @@
+export { default as TourType } from './tour/tour.interface'

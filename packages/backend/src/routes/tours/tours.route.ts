@@ -1,15 +1,15 @@
-const express = require('express');
+import express from 'express';
 
-const {
+import {
   getTour,
   getTours,
   postTour,
   patchTour,
   deleteTour,
   getToursStatistics,
-} = require('./tours.controller');
+} from './tours.controller';
 
-const { toursFilterHandler } = require('./tours.middleware');
+import { toursFilterHandler } from './tours.middleware';
 
 const router = express.Router();
 
@@ -19,4 +19,4 @@ router.route('/statistics').get(getToursStatistics);
 
 router.route('/:id').get(getTour).patch(patchTour).delete(deleteTour);
 
-module.exports = router;
+export default router;
