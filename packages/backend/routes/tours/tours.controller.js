@@ -1,22 +1,26 @@
-import { Request, Response, NextFunction, ErrorRequestHandler } from 'express';
+/**
+ * @typedef {import('@types/express').Request} Request
+ * @typedef {import('@types/express').Response} Response
+ */
 
 const Tour = require('../../models/tour/tour.model');
 
 const { APIFeature } = require('../../utils/features.util');
+const { response } = require('express');
 
-interface CustomRequest extends Request {
-  requestDate?: string;
-}
-
-export const getTours = async (request: CustomRequest, response: Response) => {
+/**
+ * @param {Request} request
+ * @param {Response} response
+ */
+const getTours = async (request, response) => {
   try {
-    // const { query } = request;
-    // const { queryModel } = new APIFeature(Tour.find(), query)
-    //   .filter()
-    //   .sort()
-    //   .exclude()
-    //   .paginate();
-    const tours = await Tour.find();
+    const { query } = request;
+    const { queryModel } = new APIFeature(Tour.find(), query)
+      .filter()
+      .sort()
+      .exclude()
+      .paginate();
+    const tours = await queryModel;
     response.status(200).json({
       status: 'success',
       requestedAt: request.requestDate,
@@ -28,12 +32,16 @@ export const getTours = async (request: CustomRequest, response: Response) => {
     response.status(500).json({
       status: 'fail',
       requestedAt: request.requestDate,
-      // message: error.message,
+      message: error.message,
     });
   }
 };
 
-export const getTour = async (request: CustomRequest, response: Response) => {
+/**
+ * @param {Request} request
+ * @param {Response} response
+ */
+const getTour = async (request, response) => {
   try {
     const { id } = request.params;
     const tour = await Tour.findById(id).exec();
@@ -47,14 +55,18 @@ export const getTour = async (request: CustomRequest, response: Response) => {
     });
   } catch (error) {
     response.status(500).json({
-      status: 'error',
+      status: 'success',
       requestedAt: request.requestDate,
-      // message: error.message,
+      message: error.message,
     });
   }
 };
 
-export const postTour = async (request: CustomRequest, response: Response) => {
+/**
+ * @param {Request} request
+ * @param {Response} response
+ */
+const postTour = async (request, response) => {
   try {
     const { body } = request;
     const tour = await Tour.create(body);
@@ -69,12 +81,16 @@ export const postTour = async (request: CustomRequest, response: Response) => {
     response.status(400).json({
       status: 'fail',
       requestedAt: request.requestDate,
-      // message: error.message,
+      message: error.message,
     });
   }
 };
 
-export const patchTour = async (request: CustomRequest, response: Response) => {
+/**
+ * @param {Request} request
+ * @param {Response} response
+ */
+const patchTour = async (request, response) => {
   try {
     const {
       params: { id },
@@ -93,15 +109,16 @@ export const patchTour = async (request: CustomRequest, response: Response) => {
     response.status(500).json({
       status: 'error',
       requestedAt: request.requestDate,
-      // message: error.message,
+      message: error.message,
     });
   }
 };
 
-export const deleteTour = async (
-  request: CustomRequest,
-  response: Response
-) => {
+/**
+ * @param {Request} request
+ * @param {Response} response
+ */
+const deleteTour = async (request, response) => {
   try {
     const { id } = request.params;
     const tour = await Tour.findByIdAndDelete(id);
@@ -114,15 +131,16 @@ export const deleteTour = async (
     response.status(500).json({
       status: 'error',
       requestedAt: request.requestDate,
-      // message: error.message,
+      message: error.message,
     });
   }
 };
 
-export const getToursStatistics = async (
-  request: CustomRequest,
-  response: Response
-) => {
+/**
+ * @param {Request} request
+ * @param {Response} response
+ */
+const getToursStatistics = async (request, response) => {
   try {
     const statistics = await Tour.aggregate([
       { $match: { ratingsAverage: { $gte: 4.5 } } },
@@ -146,7 +164,16 @@ export const getToursStatistics = async (
     response.status(500).json({
       status: 'error',
       requestedAt: request.requestDate,
-      // message: error.message,
+      message: error.message,
     });
   }
+};
+
+module.exports = {
+  getTours,
+  getTour,
+  postTour,
+  patchTour,
+  deleteTour,
+  getToursStatistics,
 };

@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 
 import { Card, Image, Group, Text, Badge, Button, Title } from '@mantine/core';
 
-import { TourType } from '@luisfer/shared/lib/interfaces';
+import { ITour } from 'shared/interfaces/tour.interface';
 
 interface TourCardProps {
-  tour: TourType;
+  tour: ITour;
 }
 
 export const TourCard: FC<TourCardProps> = ({ tour }) => {

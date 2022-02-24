@@ -1,9 +1,9 @@
-import mongoose from 'mongoose';
-import env from 'dotenv';
+const mongoose = require('mongoose');
+const env = require('dotenv');
 
 env.config({ path: './.env' });
 
-const { PORT, MONGO_URI = '' } = process.env;
+const { PORT, MONGO_URI } = process.env;
 
 mongoose
   .connect(MONGO_URI)
@@ -18,7 +18,7 @@ mongoose
     process.exit(1);
   });
 
-import app from './app';
+const app = require('./app');
 
 app.listen(PORT, () => {
   console.log(`App running in port: ${PORT}`);

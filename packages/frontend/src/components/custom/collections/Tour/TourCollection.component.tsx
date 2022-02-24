@@ -4,10 +4,10 @@ import { Grid } from '@mantine/core';
 
 import { TourCard } from 'components/custom/cards/Tour/TourCard.component';
 
-import { TourType } from '@luisfer/shared/lib/interfaces';
+import { ITour } from 'shared/interfaces/tour.interface';
 
 interface TourCollectionProps {
-  tours: TourType[];
+  tours: ITour[];
 }
 
 export const TourCollection: FC<TourCollectionProps> = ({ tours }) => {

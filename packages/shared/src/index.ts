@@ -1,0 +1,1 @@
+export { default as Greeter } from './components/Greeter/Greeter.component';
