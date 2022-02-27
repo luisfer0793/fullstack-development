@@ -24,7 +24,7 @@ export const Footer = forwardRef<HTMLElement>((_, ref) => {
           >
             @luisfer
           </Text>
-          . Copyright {dayjs(new Date()).format('MMMM D, YYYY')}
+          . Copyright {dayjs(new Date()).locale('es').format('MMMM D, YYYY')}
         </Text>
       </Container>
     </footer>

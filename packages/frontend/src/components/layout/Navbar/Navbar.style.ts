@@ -2,7 +2,8 @@ import { createStyles } from '@mantine/core';
 
 export const useStyles = createStyles(theme => ({
   navbar: {
-    backgroundColor: theme.colors.slate[1],
+    backgroundColor: theme.colors.gray[8],
+    color: theme.colors.slate[1],
   },
   container: {
     display: 'flex',
@@ -33,26 +34,26 @@ export const useStyles = createStyles(theme => ({
     paddingTop: 24,
     paddingBottom: 24,
     fontSize: 13,
-    color: theme.colors.slate[6],
     textDecoration: 'none',
     textTransform: 'uppercase',
+    color: 'currentcolor',
     '&::before': {
       position: 'absolute',
       display: 'block',
       content: "''",
       bottom: 0,
-      height: 1,
+      height: 2,
       width: '100%',
       transition: 'transform linear 200ms',
       transform: 'scaleX(0)',
-      backgroundColor: theme.colors.orange[4],
+      backgroundColor: theme.colors.orange[3],
     },
     '&:hover::before': {
       transform: 'scaleX(1)',
     },
   },
   active: {
-    color: theme.colors.orange[4],
+    color: theme.colors.orange[3],
   },
   session: {
     transition: 'color linear 150ms',

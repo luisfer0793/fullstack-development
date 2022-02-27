@@ -7,7 +7,7 @@ export const HomePage = () => {
   const { showNotification } = useNotifications();
 
   const {
-    classes: { title, main, buttonWrapper, grid },
+    classes: { title, wrapper, buttonWrapper, grid },
   } = useStyles();
 
   const onShowNotificationHandler = () => {
@@ -20,7 +20,7 @@ export const HomePage = () => {
   };
 
   return (
-    <main className={main}>
+    <main className={wrapper}>
       <Container>
         <Title order={1} className={title}>
           Mi página web!

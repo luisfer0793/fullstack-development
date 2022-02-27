@@ -33,7 +33,7 @@ export const TourCard: FC<TourCardProps> = ({ tour }) => {
 
       <Button
         variant="light"
-        color="blue"
+        color="orange"
         fullWidth
         style={{ marginTop: 14 }}
         onClick={onNavigateHandler}

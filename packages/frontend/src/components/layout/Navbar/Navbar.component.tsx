@@ -1,16 +1,20 @@
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
 
-import { Container, Text } from '@mantine/core';
+import { Button, Container, Text } from '@mantine/core';
 
 import { useTypedSelector } from 'state/store';
 
 import { setAuthentication } from 'state/slices/authentication.slice';
 
+import { AvatarDropdown } from 'components/custom/dropdowns/Avatar/AvatarDropdown.component';
+
 import { useStyles } from './Navbar.style';
 
 export const Navbar = forwardRef<HTMLElement>((_, ref) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   const { isAuthenticated } = useTypedSelector(state => state.authentication);
 
   const dispatch = useDispatch();
@@ -29,8 +33,12 @@ export const Navbar = forwardRef<HTMLElement>((_, ref) => {
     cx,
   } = useStyles();
 
-  const switchAuthenticationHandler = () => {
-    dispatch(setAuthentication(!isAuthenticated));
+  const onSignInClickHandler = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      dispatch(setAuthentication(true));
+      setIsLoading(false);
+    }, 2500);
   };
 
   return (
@@ -73,14 +81,20 @@ export const Navbar = forwardRef<HTMLElement>((_, ref) => {
             </NavLink>
           </li>
         </ul>
-        <div>
-          <span
-            className={cx(asLink, session)}
-            onClick={switchAuthenticationHandler}
+        {isAuthenticated && <AvatarDropdown />}
+        {!isAuthenticated && (
+          <Button
+            uppercase
+            color="orange"
+            loading={isLoading}
+            onClick={onSignInClickHandler}
           >
-            {isAuthenticated ? 'LOG OUT' : 'LOG IN'}
-          </span>
-        </div>
+            Log In
+          </Button>
+          // <span className={cx(asLink, session)} onClick={onSignInClickHandler}>
+          //   LOG IN
+          // </span>
+        )}
       </Container>
     </nav>
   );

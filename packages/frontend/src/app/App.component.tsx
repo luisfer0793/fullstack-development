@@ -4,7 +4,6 @@ import { useElementSize } from '@mantine/hooks';
 
 import { Navbar } from 'components/layout/Navbar/Navbar.component';
 import { Footer } from 'components/layout/Footer/Footer.component';
-import { TourCounter } from 'components/custom/counters/Tour/TourCounter.component';
 
 import { HomePage } from 'pages/Home/Home.page';
 import { ToursPage } from 'pages/Tours/Tours.page';
@@ -28,7 +27,6 @@ function AppComponent() {
     <>
       <Navbar ref={navbarRef} />
       <div className={app}>
-        <TourCounter />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="tours" element={<ToursPage />} />
