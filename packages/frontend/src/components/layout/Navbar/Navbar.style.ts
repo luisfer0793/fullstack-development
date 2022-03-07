@@ -4,6 +4,15 @@ export const useStyles = createStyles(theme => ({
   navbar: {
     backgroundColor: theme.colors.gray[8],
     color: theme.colors.slate[1],
+    [`@media (max-width: 900px)`]: {
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100%',
+      paddingTop: 16,
+      paddingBottom: 16,
+      zIndex: 10,
+    },
   },
   container: {
     display: 'flex',

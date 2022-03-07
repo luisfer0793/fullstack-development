@@ -1,22 +1,24 @@
 const express = require('express');
 
 const {
-  getTour,
-  getTours,
-  postTour,
-  patchTour,
-  deleteTour,
-  getToursStatistics,
+  getTourController,
+  getToursController,
+  postTourController,
+  patchTourController,
+  deleteTourController,
+  getToursStatisticsController,
 } = require('./tours.controller');
-
-const { toursFilterHandler } = require('./tours.middleware');
 
 const router = express.Router();
 
-router.route('/').get(toursFilterHandler, getTours).post(postTour);
+router.route('/').get(getToursController).post(postTourController);
 
-router.route('/statistics').get(getToursStatistics);
+router.route('/statistics').get(getToursStatisticsController);
 
-router.route('/:id').get(getTour).patch(patchTour).delete(deleteTour);
+router
+  .route('/:id')
+  .get(getTourController)
+  .patch(patchTourController)
+  .delete(deleteTourController);
 
 module.exports = router;

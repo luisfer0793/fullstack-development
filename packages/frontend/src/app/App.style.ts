@@ -6,9 +6,12 @@ interface ParamsProps {
 }
 
 export const useStyles = createStyles(
-  (_, { navbarHeight, footerHeight }: ParamsProps) => ({
-    app: {
+  (theme, { navbarHeight, footerHeight }: ParamsProps) => ({
+    main: {
       minHeight: `calc(100vh - ${navbarHeight}px - ${footerHeight}px)`,
+      [`@media (max-width: 900px)`]: {
+        marginTop: `calc(${navbarHeight}px + 32px) `,
+      },
     },
   })
 );

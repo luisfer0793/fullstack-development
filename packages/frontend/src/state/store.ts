@@ -16,6 +16,8 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 import { AuthenticationReducer } from './slices/authentication.slice';
 import { ToursReducer } from './slices/tours/tours.slice';
+import { DrawerReducer } from './slices/drawer/drawer.slice';
+import { MenusReducer } from './slices/menus/menus.slice';
 
 const persistConfig = {
   key: 'root',
@@ -26,6 +28,8 @@ const persistConfig = {
 const reducer = combineReducers({
   authentication: AuthenticationReducer,
   tours: ToursReducer,
+  drawer: DrawerReducer,
+  menus: MenusReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

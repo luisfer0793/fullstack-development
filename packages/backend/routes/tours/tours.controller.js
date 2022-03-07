@@ -6,13 +6,12 @@
 const Tour = require('../../models/tour/tour.model');
 
 const { APIFeature } = require('../../utils/features.util');
-const { response } = require('express');
 
 /**
  * @param {Request} request
  * @param {Response} response
  */
-const getTours = async (request, response) => {
+const getToursController = async (request, response) => {
   try {
     const { query } = request;
     const { queryModel } = new APIFeature(Tour.find(), query)
@@ -41,7 +40,7 @@ const getTours = async (request, response) => {
  * @param {Request} request
  * @param {Response} response
  */
-const getTour = async (request, response) => {
+const getTourController = async (request, response) => {
   try {
     const { id } = request.params;
     const tour = await Tour.findById(id).exec();
@@ -66,7 +65,7 @@ const getTour = async (request, response) => {
  * @param {Request} request
  * @param {Response} response
  */
-const postTour = async (request, response) => {
+const postTourController = async (request, response) => {
   try {
     const { body } = request;
     const tour = await Tour.create(body);
@@ -90,7 +89,7 @@ const postTour = async (request, response) => {
  * @param {Request} request
  * @param {Response} response
  */
-const patchTour = async (request, response) => {
+const patchTourController = async (request, response) => {
   try {
     const {
       params: { id },
@@ -118,7 +117,7 @@ const patchTour = async (request, response) => {
  * @param {Request} request
  * @param {Response} response
  */
-const deleteTour = async (request, response) => {
+const deleteTourController = async (request, response) => {
   try {
     const { id } = request.params;
     const tour = await Tour.findByIdAndDelete(id);
@@ -140,7 +139,7 @@ const deleteTour = async (request, response) => {
  * @param {Request} request
  * @param {Response} response
  */
-const getToursStatistics = async (request, response) => {
+const getToursStatisticsController = async (request, response) => {
   try {
     const statistics = await Tour.aggregate([
       { $match: { ratingsAverage: { $gte: 4.5 } } },
@@ -170,10 +169,10 @@ const getToursStatistics = async (request, response) => {
 };
 
 module.exports = {
-  getTours,
-  getTour,
-  postTour,
-  patchTour,
-  deleteTour,
-  getToursStatistics,
+  getToursController,
+  getTourController,
+  postTourController,
+  patchTourController,
+  deleteTourController,
+  getToursStatisticsController,
 };

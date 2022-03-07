@@ -20,7 +20,7 @@ export const HomePage = () => {
   };
 
   return (
-    <main className={wrapper}>
+    <div className={wrapper}>
       <Container>
         <Title order={1} className={title}>
           Mi página web!
@@ -60,6 +60,6 @@ export const HomePage = () => {
           </Button>
         </div>
       </Container>
-    </main>
+    </div>
   );
 };

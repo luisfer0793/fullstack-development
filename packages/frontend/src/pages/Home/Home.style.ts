@@ -2,8 +2,8 @@ import { createStyles } from '@mantine/core';
 
 export const useStyles = createStyles({
   wrapper: {
-    paddingTop: 32,
-    paddingBottom: 32,
+    paddingTop: 16,
+    paddingBottom: 16,
   },
   title: {
     textAlign: 'center',
