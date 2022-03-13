@@ -19,6 +19,8 @@ import { ToursReducer } from './slices/tours/tours.slice';
 import { DrawerReducer } from './slices/drawer/drawer.slice';
 import { MenusReducer } from './slices/menus/menus.slice';
 
+import { loggerMiddleware } from './middlewares/logger.middleware';
+
 const persistConfig = {
   key: 'root',
   storage,
@@ -41,7 +43,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).prepend(loggerMiddleware),
 });
 
 export const persistor = persistStore(store);

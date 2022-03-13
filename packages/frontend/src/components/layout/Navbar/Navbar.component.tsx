@@ -1,7 +1,7 @@
 import { forwardRef, useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 
-import { Burger, Button, Container, Group, Text } from '@mantine/core';
+import { Burger, Button, Container, Group, Image, Text } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 
 import { useTypedDispatch, useTypedSelector } from 'state/store';
@@ -10,6 +10,8 @@ import { asideMenuSelector } from 'state/slices/menus/menus.selector';
 import { setAsideMenuConfig } from 'state/slices/menus/menus.slice';
 
 import { AvatarDropdown } from 'components/custom/dropdowns/Avatar/AvatarDropdown.component';
+
+import main from 'assets/logo/main-white.svg';
 
 import { useStyles } from './Navbar.style';
 
@@ -47,9 +49,9 @@ export const Navbar = forwardRef<HTMLElement>((_, ref) => {
   return (
     <nav className={navbar} ref={ref}>
       <Container className={container}>
-        <Text component={Link} to="/" className={asLink}>
-          HOME
-        </Text>
+        <Link to="/">
+          <Image src={main} alt="pro art logo" width={100} height={34} />
+        </Link>
         {!isMobile && (
           <ul className={list}>
             <li className={listItem}>

@@ -4,6 +4,8 @@ import { useElementSize } from '@mantine/hooks';
 
 import { Navbar } from 'components/layout/Navbar/Navbar.component';
 import { Footer } from 'components/layout/Footer/Footer.component';
+import { SidebarNav } from 'components/layout/SidebarNav/SidebarNav.component';
+import { DrawerManager } from 'components/custom/managers/Drawer/DrawerManager.component';
 
 import { HomePage } from 'pages/Home/Home.page';
 import { ToursPage } from 'pages/Tours/Tours.page';
@@ -12,7 +14,6 @@ import { PortfolioPage } from 'pages/Portfolio/Portfolio.page';
 import { ContactPage } from 'pages/Contact/Contact.page';
 import { TourPage } from 'pages/Tour/Tour.page';
 
-import './App.css';
 import { useStyles } from './App.style';
 
 function AppComponent() {
@@ -20,13 +21,15 @@ function AppComponent() {
   const { ref: footerRef, height: footerHeight } = useElementSize();
 
   const {
-    classes: { app },
+    classes: { main },
   } = useStyles({ navbarHeight, footerHeight });
 
   return (
     <>
       <Navbar ref={navbarRef} />
-      <div className={app}>
+      <DrawerManager />
+      <SidebarNav />
+      <main className={main}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="tours" element={<ToursPage />} />
@@ -36,7 +39,7 @@ function AppComponent() {
           <Route path="contact" element={<ContactPage />} />
           <Route path="*" element={<p>Not Found</p>} />
         </Routes>
-      </div>
+      </main>
       <Footer ref={footerRef} />
     </>
   );

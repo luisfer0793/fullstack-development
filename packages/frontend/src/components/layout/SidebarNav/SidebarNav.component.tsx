@@ -1,10 +1,12 @@
 import { FC, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-import { Divider, Text } from '@mantine/core';
+import { Text } from '@mantine/core';
 import { useScrollLock } from '@mantine/hooks';
 
-import { useTypedSelector } from 'state/store';
+import { useTypedDispatch, useTypedSelector } from 'state/store';
 import { asideMenuSelector } from 'state/slices/menus/menus.selector';
+import { setAsideMenuConfig } from 'state/slices/menus/menus.slice';
 
 import { useStyles } from './SidebarNav.style';
 
@@ -13,9 +15,19 @@ export const SidebarNav: FC = () => {
 
   const [, setScrollLocked] = useScrollLock();
 
+  const dispatch = useTypedDispatch();
+
   const {
-    classes: { sidebar },
+    classes: { sidebar, list, link, item, copyright },
   } = useStyles({ isOpen });
+
+  const onLinkClickHandler = () => {
+    dispatch(
+      setAsideMenuConfig({
+        isOpen: false,
+      })
+    );
+  };
 
   useEffect(() => {
     setScrollLocked(isOpen);
@@ -24,15 +36,39 @@ export const SidebarNav: FC = () => {
   return (
     <aside className={sidebar}>
       <header>
-        <Text component="p">Aquí va el header</Text>
+        <nav>
+          <ul className={list}>
+            <li className={item}>
+              <Link to="tours" className={link} onClick={onLinkClickHandler}>
+                Tours
+              </Link>
+            </li>
+            <li className={item}>
+              <Link to="blog" className={link} onClick={onLinkClickHandler}>
+                Blog
+              </Link>
+            </li>
+            <li className={item}>
+              <Link
+                to="portfolio"
+                className={link}
+                onClick={onLinkClickHandler}
+              >
+                Portafolio
+              </Link>
+            </li>
+            <li className={item}>
+              <Link to="contact" className={link} onClick={onLinkClickHandler}>
+                Contacto
+              </Link>
+            </li>
+          </ul>
+        </nav>
       </header>
-      <Divider
-        color="indigo"
-        label="Enlaces importantes"
-        labelPosition="center"
-      />
       <footer>
-        <Text component="p">Aquí va el footer</Text>
+        <Text component="p" className={copyright}>
+          &copy; 2022. All rights reserved
+        </Text>
       </footer>
     </aside>
   );

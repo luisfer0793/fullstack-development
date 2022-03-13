@@ -7,7 +7,8 @@ interface StylesProps {
 export const useStyles = createStyles((theme, { isOpen }: StylesProps) => ({
   sidebar: {
     position: 'fixed',
-    padding: 16,
+    display: 'flex',
+    padding: 32,
     height: `calc(100vh - 66px)`,
     width: '100%',
     top: 66,
@@ -18,5 +19,25 @@ export const useStyles = createStyles((theme, { isOpen }: StylesProps) => ({
     transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
     color: theme.colors.gray[2],
     backgroundColor: theme.colors.gray[8],
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+  list: {
+    listStyle: 'none',
+  },
+  link: {
+    textTransform: 'uppercase',
+    textDecoration: 'none',
+    color: 'currentcolor',
+    fontSize: 28,
+    fontFamily: theme.other.fontSerif,
+    fontWeight: theme.other.weights[3],
+  },
+  item: {
+    marginTop: 16,
+    marginBottom: 16,
+  },
+  copyright: {
+    fontSize: 13,
   },
 }));
